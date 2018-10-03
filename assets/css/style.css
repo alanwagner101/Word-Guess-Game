@@ -1,0 +1,33 @@
+#body {
+    background-image: url("../images/space.jpg");
+}
+
+#Jumbo {
+    text-align: center;
+    color: #eeeeee;
+    height: 200px;
+    padding-top:40px;
+}
+
+#Main-Content {
+    text-align: center;
+    color: #eeeeee;
+}
+
+.WordBlock {
+    width:40px;
+    height:40px;
+    margin: 10px;
+    border-bottom:2px solid #eeeeee;
+    float: left;
+}
+
+#play {
+    height: 40px;
+    margin: 50px;
+}
+
+img {
+    width: 320px;
+    height: 320px;
+}
