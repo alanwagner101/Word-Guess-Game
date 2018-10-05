@@ -5,7 +5,8 @@ var lose = [];
 
         var Europa = ["E", "u", "r", "o", "p", "a"];
         var Pluto = ["P", "l", "u", "t", "o"];
-        var MilkyWay = ["M", "i", "l", "k", "y", "W", "a", "y"]
+        var MilkyWay = ["M", "i", "l", "k", "y", "W", "a", "y"];
+        var Andromeda = ["A", "n", "d", "r", "o", "m", "e", "d", "a"];
         var WordBlock1 = document.getElementById("WB1");
         var WordBlock2 = document.getElementById("WB2");
         var WordBlock3 = document.getElementById("WB3");
@@ -20,18 +21,15 @@ var lose = [];
         var Play = document.getElementById("play");
         var Loser = document.getElementById("loss");
         var Winner = document.getElementById("wins");
-        var img = document.getElementById("img")
-        var wrong = document.getElementById("wrong")
+        var img = document.getElementById("img");
+        var wrong = document.getElementById("wrong");
         var IncorrectLetters = document.getElementById("WrongLetter");
         var i = 0;
         var w = 0;
         var q = 6;
-        var newWrong = document.createElement("p")
+        var x = Math.floor((Math.random() * 4) + 1);
+        var newWrong = document.createElement("p");
         var newImg = document.createElement("img");
-        var replace1 = document.createElement("p");
-        var replace2 = document.createElement("p");
-        var replace3 = document.createElement("p");
-        var replace4 = document.createElement("img");
         var blank1 = document.createElement("p");
         var blank2 = document.createElement("p");
         var images = ["assets/images/hangman7.jpg", "assets/images/hangman6.jpg", "assets/images/hangman5.jpg", "assets/images/hangman4.jpg", "assets/images/hangman3.jpg", "assets/images/hangman2.jpg"]
@@ -47,29 +45,36 @@ var lose = [];
         
         blank1.textContent = "0";
         Winner.appendChild(blank1);
-        
-        function Restart() {
-            q = 6;
-            w = 0;
-            i = 0;
-            IncorrectLetters.innerHTML="";
-            var wordBlocks = document.querySelectorAll('.WordBlock')
-            for(var i = 0; i < wordBlocks.length; i++) {
-            wordBlocks[i].innerHTML = "";
+
+        function go() {
+            console.log(x)
+            if (x == 1){
+            EuropaSetup();
+            EuropaStart();
             }
-            console.log(wordBlocks)
-            replace3.textContent = q;
-            wrong.appendChild(replace3);
-            newWrong.textContent = "6";
-            wrong.replaceChild(newWrong, replace3);
-            replace4.src = images[q];
-            img.appendChild(replace4);
-            newImg.src = "assets/images/hangman1.jpg";
-            img.replaceChild(newImg, replace4);
+            else if (x == 2){
+            PlutoSetup();
+            PlutoStart();
+            }
+            else if (x == 3 ) {
+            MilkyWaySetup();
+            MilkyWayStart();
+            }
+            else {
+            AndromedaSetup();
+            AndromedaStart();
+            }
         }
 
-        
-        function EuropaStart() {
+        document.onkeyup = function(event){
+            console.log (event.key);
+
+            if (event.key) {
+                go();
+            };
+        };
+
+        function EuropaSetup(){
             WordBlock1.style.display = "block";
             WordBlock2.style.display = "block";
             WordBlock3.style.display = "block";
@@ -78,6 +83,68 @@ var lose = [];
             WordBlock6.style.display = "block";
             Play.style.display = "none";
             WordBlock11.append("")
+        };
+
+        function PlutoSetup() {
+            WordBlock1.style.display = "block";
+            WordBlock2.style.display = "block";
+            WordBlock3.style.display = "block";
+            WordBlock4.style.display = "block";
+            WordBlock5.style.display = "block";
+            WordBlock6.style.display = "none";
+            Play.style.display = "none";
+            WordBlock11.append("")
+        };
+
+        function MilkyWaySetup() {
+            WordBlock1.style.display = "block";
+            WordBlock2.style.display = "block";
+            WordBlock3.style.display = "block";
+            WordBlock4.style.display = "block";
+            WordBlock5.style.display = "block";
+            WordBlock6.style.borderBottom = "none";
+            WordBlock6.style.display = "block";
+            WordBlock7.style.display = "block";
+            WordBlock8.style.display = "block";
+            WordBlock9.style.display = "block";
+            Play.style.display = "none";
+            WordBlock11.append("")
+        };
+
+        function AndromedaSetup() {
+            WordBlock1.style.display = "block";
+            WordBlock2.style.display = "block";
+            WordBlock3.style.display = "block";
+            WordBlock4.style.display = "block";
+            WordBlock5.style.display = "block";
+            WordBlock6.style.display = "block";
+            WordBlock7.style.display = "block";
+            WordBlock8.style.display = "block";
+            WordBlock9.style.display = "block";
+            Play.style.display = "none";
+            WordBlock11.append("")
+        };
+
+        
+        function Restart() {
+            q = 6;
+            w = 0;
+            i = 0;
+            x = Math.floor((Math.random() * 4) + 1);
+            IncorrectLetters.innerHTML="";
+            var wordBlocks = document.querySelectorAll('.WordBlock')
+            for(var i = 0; i < wordBlocks.length; i++) {
+            wordBlocks[i].innerHTML = "";
+            wordBlocks[i].style.display = "none";
+            wordBlocks[i].style.borderBottom = "2px solid #eeeeee";
+            }
+            newWrong.innerHTML = "6";
+            newImg.src = "assets/images/hangman1.jpg";
+            go()
+        }
+
+        
+        function EuropaStart() {
         
             function Europa1() {
                 WordBlock1.innerHTML = Europa[0];
@@ -111,27 +178,20 @@ var lose = [];
 
             function Win() {
                 win.push(w)
-                blank1.textContent = "0";
-                Winner.appendChild(blank1);          
-                replace1.textContent = win.length;
-                Winner.replaceChild(replace1, blank1);
+                blank1.innerHTML = win.length;
+                Restart()
             }
             
             function Loss() {
                 lose.push(i);
-                blank2.textContent = "0";
-                Loser.appendChild(blank2);
-                replace2.textContent = lose.length;
-                Loser.replaceChild(replace2, blank2);
+                blank2.innerHTML = lose.length;
+                Restart()
             }
 
             function Incorrect() {
-                IncorrectLetters.append(event.key + ", ");
+                IncorrectLetters.append(event.key + ",");
                 q--
-                newWrong.textContent = q;
-                wrong.appendChild(newWrong);
-                replace3.textContent = q;
-                wrong.replaceChild(replace3, newWrong);
+                newWrong.innerHTML = q;
                 newImg.setAttribute("src", images[q]);
             }
             
@@ -166,33 +226,20 @@ var lose = [];
                 j = j-1;
                 }
                 else {
-                Incorrect();
-                i = i + 1;    
+                Incorrect();   
                 };
 
                 if (w == 6) {
                 Win();
-                PlutoStart();
-                Restart();
                 }               
-                else if (i == 6) {
+                else if (q == 0) {
                 Loss();
-                PlutoStart();
-                Restart();
                 }
             }
         }
     }
 
         function PlutoStart() {
-            WordBlock1.style.display = "block";
-            WordBlock2.style.display = "block";
-            WordBlock3.style.display = "block";
-            WordBlock4.style.display = "block";
-            WordBlock5.style.display = "block";
-            WordBlock6.style.display = "none";
-            Play.style.display = "none";
-            WordBlock11.append("")
         
             function Pluto1() {
                 WordBlock1.innerHTML = Pluto[0];
@@ -221,27 +268,20 @@ var lose = [];
 
             function Win() {
                 win.push(w);
-                blank1.textContent = "0";
-                Winner.appendChild(blank1);          
-                replace1.textContent = win.length;
-                Winner.replaceChild(replace1, blank1);
+                blank1.innerHTML = win.length;
+                Restart()
             }
             
             function Loss() {
                 lose.push(i);
-                blank2.textContent = "0";
-                Loser.appendChild(blank2);
-                replace2.textContent = lose.length;
-                Loser.replaceChild(replace2, blank2);
+                blank2.innerHTML = lose.length;
+                Restart()
             }
 
             function Incorrect() {
-                IncorrectLetters.append(event.key + ", ");
+                IncorrectLetters.append(event.key + ",");
                 q--
-                newWrong.textContent = q;
-                wrong.appendChild(newWrong);
-                replace3.textContent = q;
-                wrong.replaceChild(replace3, newWrong);
+                newWrong.innerHTML = q;
                 newImg.setAttribute("src", images[q]);
             }
             
@@ -272,31 +312,241 @@ var lose = [];
                 j = j-1;
                 }
                 else {
-                Incorrect();
-                i = i + 1;    
+                Incorrect();   
                 };
 
                 if (w == 5) {
                 Win();
-                EuropaStart();
-                Restart();
                 }                
-                else if (i == 6) {
+                else if (q == 0) {
                 Loss();
-                EuropaStart();
-                Restart();
                 }
             }
         }
     }
-        document.onkeyup = function(event){
-            console.log (event.key);
 
-            for (var e = 0; e <1; e++) {
-                if (event.key) {
-                EuropaStart();
+        function MilkyWayStart() {
+        
+            function MilkyWay1() {
+                WordBlock1.innerHTML = MilkyWay[0];
+                w = w + 1;
+            };
+
+            function MilkyWay2() {
+                WordBlock2.innerHTML = MilkyWay[1];
+                w = w + 1;
+            };
+
+            function MilkyWay3() {
+                WordBlock3.innerHTML = MilkyWay[2];
+                w = w + 1;
+            };
+
+            function MilkyWay4() {
+                WordBlock4.innerHTML = MilkyWay[3];
+                w = w + 1;
+            };
+
+            function MilkyWay5() {
+                WordBlock5.innerHTML = MilkyWay[4];
+                w = w + 1;
+            };
+
+            function MilkyWay6() {
+                WordBlock7.innerHTML = MilkyWay[5];
+                w = w + 1;
+            };
+
+            function MilkyWay7() {
+                WordBlock8.innerHTML = MilkyWay[6];
+                w = w + 1;
+            };
+
+            function MilkyWay8() {
+                WordBlock9.innerHTML = MilkyWay[7];
+                w = w + 1;
+            };
+
+            function Win() {
+                win.push(w)
+                blank1.innerHTML = win.length;
+                Restart()
+            }
+            
+            function Loss() {
+                lose.push(i);
+                blank2.innerHTML = lose.length;
+                Restart()
+            }
+
+            function Incorrect() {
+                IncorrectLetters.append(event.key + ",");
+                q--
+                newWrong.innerHTML = q;
+                newImg.setAttribute("src", images[q]);
+            }
+            
+            for (var j=0; j < 6; j++) {
+
+            document.onkeyup = function(event){
+                console.log (event.key);
+
+                
+                if (event.key == "m") {
+                MilkyWay1();
+                j = j-1;
+                }
+                else if (event.key == "i") {
+                MilkyWay2();
+                j = j-1;
+                }
+                else if (event.key == "l") {
+                MilkyWay3();
+                j = j-1;
+                }
+                else if (event.key == "k") {
+                MilkyWay4();
+                j = j-1;
+                }
+                else if (event.key == "y") {
+                MilkyWay5();
+                MilkyWay8();
+                j = j-1;
+                }
+                else if (event.key == "w") {
+                MilkyWay6();
+                j = j-1;
+                }
+                else if (event.key == "a") {
+                MilkyWay7();
+                j = j-1;
+                }
+                else {
+                Incorrect();   
+                };
+
+                if (w == 8) {
+                Win();
+                }               
+                else if (q == 0) {
+                Loss();
                 }
             }
         }
-    
+    }
+        function AndromedaStart() {
+            
+            function Andromeda1() {
+                WordBlock1.innerHTML = Andromeda[0];
+                w = w + 1;
+            };
+
+            function Andromeda2() {
+                WordBlock2.innerHTML = Andromeda[1];
+                w = w + 1;
+            };
+
+            function Andromeda3() {
+                WordBlock3.innerHTML = Andromeda[2];
+                w = w + 1;
+            };
+
+            function Andromeda4() {
+                WordBlock4.innerHTML = Andromeda[3];
+                w = w + 1;
+            };
+
+            function Andromeda5() {
+                WordBlock5.innerHTML = Andromeda[4];
+                w = w + 1;
+            };
+
+            function Andromeda6() {
+                WordBlock6.innerHTML = Andromeda[5];
+                w = w + 1;
+            };
+
+            function Andromeda7() {
+                WordBlock7.innerHTML = Andromeda[6];
+                w = w + 1;
+            };
+
+            function Andromeda8() {
+                WordBlock8.innerHTML = Andromeda[7];
+                w = w + 1;
+            };
+
+            function Andromeda9() {
+                WordBlock9.innerHTML = Andromeda[8];
+                w = w + 1;
+            };
+
+            function Win() {
+                win.push(w)
+                blank1.innerHTML = win.length;
+                Restart()
+            }
+            
+            function Loss() {
+                lose.push(i);
+                blank2.innerHTML = lose.length;
+                Restart()
+            }
+
+            function Incorrect() {
+                IncorrectLetters.append(event.key + ",");
+                q--
+                newWrong.innerHTML = q;
+                newImg.setAttribute("src", images[q]);
+            }
+            
+            for (var j=0; j < 6; j++) {
+
+            document.onkeyup = function(event){
+                console.log (event.key);
+
+                
+                if (event.key == "a") {
+                Andromeda1();
+                Andromeda9();
+                j = j-1;
+                }
+                else if (event.key == "n") {
+                Andromeda2();
+                j = j-1;
+                }
+                else if (event.key == "r") {
+                Andromeda4();
+                j = j-1;
+                }
+                else if (event.key == "o") {
+                Andromeda5();
+                j = j-1;
+                }
+                else if (event.key == "m") {
+                Andromeda6();
+                j = j-1;
+                }
+                else if (event.key == "e") {
+                Andromeda7();
+                j = j-1;
+                }
+                else if (event.key == "d") {
+                Andromeda3();
+                Andromeda8();
+                j = j-1;
+                }
+                else {
+                Incorrect();   
+                };
+
+                if (w == 9) {
+                Win();
+                }               
+                else if (q == 0) {
+                Loss();
+                }
+            }
+        }
+    }
 })
