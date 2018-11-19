@@ -4,6 +4,8 @@ https://alanwagner101.github.io/Word-Guess-Game/
 
 Another classic kids game but with an out of this world twist (*cough* it's space themed *cough*).
 
+The challenge in this game was using JavaScript to append letters and keep track of previously used letters and well as a scoreboard systen in which it keeps track of how many wins and losses occured. This was one of my first opportunities with JavaScript so it was a fun experience having to research and find clever ways to arrange everything in the JS file.
+
 This is Hangman in space. 
 
 The way it works is simple.
